@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1704.4
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A801329B-D101-46D1-9CED-E53BAA85BC80}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentsGateway.API", "PaymentsGateway.API\PaymentsGateway.API.csproj", "{8B591B9B-F55E-4519-8A0A-FF4AA9F96848}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentsGateway.Domain", "PaymentsGateway.Domain\PaymentsGateway.Domain.csproj", "{40485D5C-CC16-4565-8913-211A778D17E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentsGateway.Infrastructure", "PaymentsGateway.Infrastructure\PaymentsGateway.Infrastructure.csproj", "{C91754FF-FE4D-4F3C-AE18-F1C2FDF746A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankSimulator", "BankSimulator\BankSimulator.csproj", "{22D63BAC-240E-416B-811D-802C6EA3B0D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentsGateway.Application", "PaymentsGateway.Application\PaymentsGateway.Application.csproj", "{D7AA9838-CD96-4E93-869B-CC8BDAFD0468}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8B591B9B-F55E-4519-8A0A-FF4AA9F96848}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B591B9B-F55E-4519-8A0A-FF4AA9F96848}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B591B9B-F55E-4519-8A0A-FF4AA9F96848}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B591B9B-F55E-4519-8A0A-FF4AA9F96848}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40485D5C-CC16-4565-8913-211A778D17E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40485D5C-CC16-4565-8913-211A778D17E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40485D5C-CC16-4565-8913-211A778D17E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40485D5C-CC16-4565-8913-211A778D17E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C91754FF-FE4D-4F3C-AE18-F1C2FDF746A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C91754FF-FE4D-4F3C-AE18-F1C2FDF746A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C91754FF-FE4D-4F3C-AE18-F1C2FDF746A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C91754FF-FE4D-4F3C-AE18-F1C2FDF746A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22D63BAC-240E-416B-811D-802C6EA3B0D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22D63BAC-240E-416B-811D-802C6EA3B0D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22D63BAC-240E-416B-811D-802C6EA3B0D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22D63BAC-240E-416B-811D-802C6EA3B0D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7AA9838-CD96-4E93-869B-CC8BDAFD0468}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7AA9838-CD96-4E93-869B-CC8BDAFD0468}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7AA9838-CD96-4E93-869B-CC8BDAFD0468}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7AA9838-CD96-4E93-869B-CC8BDAFD0468}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C53945AC-023C-45F6-A499-3EC36BDD9878}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8B591B9B-F55E-4519-8A0A-FF4AA9F96848} = {A801329B-D101-46D1-9CED-E53BAA85BC80}
+		{40485D5C-CC16-4565-8913-211A778D17E4} = {A801329B-D101-46D1-9CED-E53BAA85BC80}
+		{C91754FF-FE4D-4F3C-AE18-F1C2FDF746A6} = {A801329B-D101-46D1-9CED-E53BAA85BC80}
+		{22D63BAC-240E-416B-811D-802C6EA3B0D1} = {A801329B-D101-46D1-9CED-E53BAA85BC80}
+		{D7AA9838-CD96-4E93-869B-CC8BDAFD0468} = {A801329B-D101-46D1-9CED-E53BAA85BC80}
+	EndGlobalSection
+EndGlobal
