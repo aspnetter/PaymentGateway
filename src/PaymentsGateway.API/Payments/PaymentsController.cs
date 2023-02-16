@@ -1,6 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using MediatR;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using PaymentsGateway.Application;
 
 namespace PaymentsGateway.API.Payments;
 
@@ -10,27 +11,43 @@ public class PaymentsController : ControllerBase
 {
 
     private readonly ILogger<PaymentsController> _logger;
+    private readonly IMediator _mediator;
 
-    public PaymentsController(ILogger<PaymentsController> logger)
+    public PaymentsController(ILogger<PaymentsController> logger, IMediator mediator)
     {
         _logger = logger;
+        _mediator = mediator;
     }
 
     [HttpGet("{paymentId}")]
     [ProducesResponseType(typeof(GetPaymentResponse), StatusCodes.Status200OK)]
+    [ProducesErrorResponseType(typeof(NotFound))]
     public async Task<IActionResult> GetPaymentDetails(Guid paymentId)
     {
-        //var meetingDetails = await _meetingsModule.ExecuteQueryAsync(new GetMeetingDetailsQuery(meetingId));
-        var paymentDetails = new GetPaymentResponse();
-        return Ok(paymentDetails);
+        var getPaymentQuery = new GetPaymentByIdQuery { Id = paymentId };
+        var payment = await _mediator.Send(getPaymentQuery);
+
+        if (payment != null)
+        {
+            var paymentResponse = new GetPaymentResponse(payment);
+            return Ok(paymentResponse);
+        }
+
+        return NotFound();
     }
 
     [HttpPost("")]
-    [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<IActionResult> CreatePayment([FromBody] CreatePaymentRequest request)
+    [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
+    [ProducesErrorResponseType(typeof(BadRequest))]
+    public async Task<IActionResult> CreatePayment([FromBody] CreatePaymentCommand сommand)
     {
-        //execute new CreatePaymentCommand
-        return Ok();
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState); 
+        }
+        
+        var newPaymentId = await _mediator.Send(сommand);
+        return Created(new Uri(""), newPaymentId); //TODO: Return Uri and response
     }
 }
 
