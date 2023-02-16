@@ -25,6 +25,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BankSimulator\BankSimulator.csproj" />
     <ProjectReference Include="..\PaymentsGateway.Application\PaymentsGateway.Application.csproj" />
     <ProjectReference Include="..\PaymentsGateway.Infrastructure\PaymentsGateway.Infrastructure.csproj" />
   </ItemGroup>

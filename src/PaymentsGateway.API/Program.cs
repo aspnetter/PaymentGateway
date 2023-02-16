@@ -1,4 +1,6 @@
-﻿using PaymentsGateway.Application;
+﻿using BankSimulator;
+using BankSimulator.Interface;
+using PaymentsGateway.Application;
 using PaymentsGateway.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddBankSimulator();
+
 builder.Services.AddMediatR(o =>
 {
     o.RegisterServicesFromAssemblies(
