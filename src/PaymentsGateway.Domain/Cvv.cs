@@ -4,6 +4,7 @@ namespace PaymentsGateway.Domain;
 
 public partial class Cvv
 {
+    public string Code { get; private set; }
     //TEST:UNIT
     public Cvv(string? code)
     {
@@ -16,7 +17,11 @@ public partial class Cvv
         {
             throw new DomainException(GetType(), "Invalid CVV code format");
         }
+
+        Code = code;
     }
+    
+    private Cvv() {}
     
     [GeneratedRegex("^[0-9]{3,4}$")]
     private static partial Regex MyRegex();

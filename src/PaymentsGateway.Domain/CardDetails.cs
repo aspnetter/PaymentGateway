@@ -27,6 +27,8 @@ public class CardDetails
         Expires = new ExpiryDate(expiryMonth, expiryYear);
         CvvCode = new Cvv(cvv);
     }
+    
+    private CardDetails() {}
 
     private static bool IsValidCardNumber(string? cardNumber)
     {

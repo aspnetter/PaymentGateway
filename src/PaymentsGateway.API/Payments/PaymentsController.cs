@@ -47,7 +47,9 @@ public class PaymentsController : ControllerBase
         }
         
         var newPaymentId = await _mediator.Send(сommand);
-        return Created(new Uri(""), newPaymentId); //TODO: Return Uri and response
+        
+        return Created(new Uri($"{Request.Path}/{newPaymentId}", 
+            UriKind.Relative), newPaymentId);
     }
 }
 

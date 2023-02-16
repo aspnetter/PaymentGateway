@@ -21,4 +21,6 @@ public class IsoCurrency
         
         Code = code;
     }
+    
+    private IsoCurrency() {}
 }

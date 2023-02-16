@@ -11,8 +11,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMediatR(o =>
 {
-    o.RegisterServicesFromAssemblies(typeof(Program).Assembly, typeof(CreatePaymentCommand).Assembly);
+    o.RegisterServicesFromAssemblies(
+        typeof(Program).Assembly, 
+        typeof(CreatePaymentCommand).Assembly, 
+        typeof(MakePaymentCommand).Assembly
+        );
 });
+
 
 PaymentGatewayContext.Init(builder.Services, builder.Configuration.GetConnectionString("Payments"));
 

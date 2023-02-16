@@ -25,10 +25,43 @@ public class PaymentGatewayContext : DbContext
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        
+
         var payment = builder.Entity<Payment>();
 
         payment.ToTable("Payment");
         payment.Property(o => o.Id).ValueGeneratedNever();
+        payment.OwnsOne(o => o.TotalAmount, o =>
+        {
+            o.Property(o => o.Total).HasColumnName("Amount");
+
+            o.OwnsOne(c => c.Currency, c =>
+            {
+                c.Property(o => o.Code).HasColumnName("Currency");
+            });
+        });
+        
+        payment.OwnsOne(o => o.Card, o =>
+        {
+            o.Property(o => o.OwnerName).HasColumnName("CardOwnerName");
+            o.Property(o => o.Number).HasColumnName("CardNumber");
+            
+            o.OwnsOne(c => c.Expires, c =>
+            {
+                c.Property(x => x.Month).HasColumnName("CardExpiryMonth");
+                c.Property(x => x.Year).HasColumnName("CardExpiryYear");
+                c.Ignore(x => x.IsOverdue);
+            });
+            o.OwnsOne(c => c.CvvCode, c =>
+            {
+                c.Property(x => x.Code).HasColumnName("CardCvvCode");
+            });
+        });
+
+        payment.OwnsOne(o => o.Result, o =>
+        {
+            o.Property(o => o.Status).HasColumnName("Status");
+            o.Property(o => o.StatusCode).HasColumnName("StatusCode");
+            o.Ignore(o => o.IsSuccessful);
+        });
     }
 }

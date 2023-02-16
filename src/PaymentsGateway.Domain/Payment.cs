@@ -2,11 +2,11 @@
 
 public class Payment
 {
-    public Guid Id { get; }
+    public Guid Id { get; private set; }
     
-    public Guid MerchantId { get; }
+    public Guid MerchantId { get; private set; }
     
-    public PaymentAmount TotalAmount { get; }
+    public Amount TotalAmount { get; private set; }
     
     public CardDetails Card { get; private set; }
     
@@ -14,7 +14,7 @@ public class Payment
     
     public PaymentResult Result { get; private set; }
 
-    public Payment(Guid merchantId, PaymentAmount amount, CardDetails card)
+    public Payment(Guid merchantId, Amount amount, CardDetails card)
     {
         Id = Guid.NewGuid();
         CreatedDateTimeUtc = DateTime.UtcNow;
@@ -22,7 +22,11 @@ public class Payment
         MerchantId = merchantId;
         TotalAmount = amount;
         Card = card;
-        
+
+        Result = new PaymentResult(PaymentStatus.Pending, string.Empty);
+
         //TODO: publish event
     }
+
+    private Payment() {}
 }

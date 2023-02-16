@@ -25,6 +25,8 @@ public class ExpiryDate
         Year = year;
     }
     
+    private ExpiryDate() {}
+    
     //TEST:UNIT
     public bool IsOverdue
     {
