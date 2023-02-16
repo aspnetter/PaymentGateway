@@ -6,4 +6,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="CreditCardValidator" Version="3.0.1" />
+      <PackageReference Include="ISO.4217.CurrencyCodes" Version="1.0.10" />
+    </ItemGroup>
+
 </Project>
