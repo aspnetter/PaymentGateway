@@ -6,9 +6,9 @@ namespace BankSimulator;
 
 public class TransactionProcessor : IHostedService, IDisposable
 {
-    private const int TransactionProcessIntervalSeconds = 30;
+    private const int TransactionProcessIntervalSeconds = 10;
     private readonly IMediator _mediator;
-    private Timer? _timer = null;
+    private Timer? _timer;
 
     public TransactionProcessor(IMediator mediator)
     {
@@ -31,14 +31,36 @@ public class TransactionProcessor : IHostedService, IDisposable
         {
             ProcessTransaction(cardTransaction);
         }
-
     }
 
     private void ProcessTransaction(BankCardTransaction transaction)
     {
-        //TODO decide successful & unsuccessful cards
+        var paymentStatus = PaymentStatus.Fail;
+        var paymentStatusReason = PaymentStatusReason.Unknown;
+        var found = false;
+ 
+        foreach (var statusReasons in TestData.Cards)
+        {
+            if (found) break;
+            var status = statusReasons.Key;
+            foreach (var reasons in statusReasons.Value)
+            {
+                var cards = reasons.Value;
 
-        _mediator.Publish(new PaymentProcessedEvent(transaction.PaymentId, "DECLINED", "INSUFFICIENT_FUNDS")); 
+                if (cards.Any(c => string.CompareOrdinal(c, transaction.CardNumber) == 0))
+                {
+                    paymentStatus = status;
+                    paymentStatusReason = reasons.Key;
+                    found = true;
+                    break;
+                }
+            }
+        }
+
+        _mediator.Publish(new PaymentProcessedEvent(
+                transaction.PaymentId, 
+                paymentStatus.ToString(), 
+                paymentStatusReason.ToString())); 
     }
 
     public Task StopAsync(CancellationToken stoppingToken)
