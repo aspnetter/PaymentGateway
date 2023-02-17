@@ -32,7 +32,17 @@ public class CreatePaymentCommandHandler : IRequestHandler<CreatePaymentCommand,
 
         await _context.SaveChangesAsync(CancellationToken.None);
 
-        await _mediator.Send(new MakePaymentCommand(payment.Id, payment.Card.Number), CancellationToken.None);
+        await _mediator.Send(
+            new MakePaymentCommand(payment.Id, 
+                payment.Card.Number,
+                payment.TotalAmount.Total,
+                payment.TotalAmount.Currency.Code, 
+                payment.Card.OwnerName,
+                payment.Card.Expires.Year,
+                payment.Card.Expires.Month,
+                payment.Card.CvvCode.Code
+                ), 
+            CancellationToken.None);
 
         return payment.Id;
     }

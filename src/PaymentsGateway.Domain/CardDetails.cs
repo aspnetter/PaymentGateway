@@ -21,7 +21,7 @@ public class CardDetails
     }
 
     //TEST:UNIT
-    public CardDetails(string? ownerName, string? cardNumber, int expiryMonth, int expiryYear, string? cvv)
+    public CardDetails(string ownerName, string cardNumber, int expiryMonth, int expiryYear, string cvv)
     {
         if (string.IsNullOrWhiteSpace(ownerName))
         {

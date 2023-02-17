@@ -6,7 +6,7 @@ public partial class Cvv
 {
     public string Code { get; private set; }
     //TEST:UNIT
-    public Cvv(string? code)
+    public Cvv(string code)
     {
         if (string.IsNullOrWhiteSpace(code))
         {

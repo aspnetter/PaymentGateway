@@ -7,10 +7,13 @@ public class IsoCurrencyAttribute : ValidationAttribute
 {
     public override bool IsValid(object? value)
     {
-        var currencyCode = value as string;
-
+        if (value == null)
+        {
+            return false;
+        }
         try
         {
+            var currencyCode = (string) value;
             var unused = new IsoCurrency(currencyCode);
         }
         catch (DomainException e)

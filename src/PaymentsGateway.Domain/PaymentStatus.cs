@@ -1,9 +1,10 @@
 namespace PaymentsGateway.Domain;
 
-public enum PaymentStatus
+public enum PaymentStatusCode
 {
     Success,
     Fail,
     Pending,
-    Error
+    Error,
+    Unknown
 }

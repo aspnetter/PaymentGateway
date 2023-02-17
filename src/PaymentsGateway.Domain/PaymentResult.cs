@@ -2,22 +2,23 @@ namespace PaymentsGateway.Domain;
 
 public class PaymentResult
 {
-    public PaymentStatus Status { get; private set; }
+    public PaymentStatusCode Status { get; private set; }
     public string StatusReason { get; private set; }
+    public bool IsSuccessful => Status == PaymentStatusCode.Success;
 
-    public PaymentResult(PaymentStatus status, string statusReason)
+    public PaymentResult(PaymentStatusCode status, string statusReason = "")
     {
         Status = status;
         StatusReason = statusReason;
     }
-    
-    private PaymentResult() {}
-
-    public bool IsSuccessful
+    public PaymentResult(string status, string statusReason)
     {
-        get
+        Status = PaymentStatusCode.Unknown;
+        if (Enum.TryParse(status, out PaymentStatusCode knownStatus))
         {
-            return Status == PaymentStatus.Success;
+            Status = knownStatus;
         }
+        StatusReason = statusReason;
     }
+    private PaymentResult() {}
 }

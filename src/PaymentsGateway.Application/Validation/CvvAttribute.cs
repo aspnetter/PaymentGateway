@@ -7,10 +7,13 @@ public class CvvAttribute: ValidationAttribute
 {
     public override bool IsValid(object? value)
     {
-        var code = value as string;
-        
+        if (value == null)
+        {
+            return false;
+        }
         try
         {
+            var code = (string) value;
             var unused = new Cvv(code);
         }
         catch (DomainException e)

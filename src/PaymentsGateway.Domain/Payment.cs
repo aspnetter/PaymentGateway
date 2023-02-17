@@ -12,7 +12,7 @@ public class Payment
     
     public DateTime CreatedDateTimeUtc { get; private set; }
     
-    public PaymentResult Result { get; private set; }
+    public PaymentResult Result { get; set; }
 
     public Payment(Guid merchantId, Amount amount, CardDetails card)
     {
@@ -23,9 +23,7 @@ public class Payment
         TotalAmount = amount;
         Card = card;
 
-        Result = new PaymentResult(PaymentStatus.Pending, string.Empty);
-
-        //TODO: publish event
+        Result = new PaymentResult(PaymentStatusCode.Pending);
     }
 
     private Payment() {}

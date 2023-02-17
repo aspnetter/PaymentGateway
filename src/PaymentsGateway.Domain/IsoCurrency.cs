@@ -2,10 +2,10 @@ namespace PaymentsGateway.Domain;
 
 public class IsoCurrency
 {
-    public string? Code { get; private set; }
+    public string Code { get; private set; }
     
     //TEST:UNIT
-    public IsoCurrency(string? code)
+    public IsoCurrency(string code)
     {
         if (string.IsNullOrWhiteSpace(code))
         {

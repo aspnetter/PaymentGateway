@@ -11,19 +11,19 @@ public class CreatePaymentCommand: IRequest<Guid>, IValidatableObject
     [Required]
     public Guid MerchantId { get; set; }
     [Required, MinLength(4), MaxLength(64)]
-    public string? CardholderName { get; set; }
+    public string CardholderName { get; set; }
     [Required, CreditCard ]
-    public string? CardNumber { get; set; }
+    public string CardNumber { get; set; }
     [Required, Range(1, 12)]
     public int ExpiryMonth { get; set; }
     [Required]
     public int ExpiryYear { get; set; }
     [Required, Cvv(ErrorMessage = "CVV format is invalid")]
-    public string? Cvv { get; set; }
+    public string Cvv { get; set; }
     [Required]
     public decimal Amount { get; set; }
     [Required, IsoCurrency]
-    public string? CurrencyCode { get; set; }
+    public string CurrencyCode { get; set; }
     public IEnumerable<ValidationResult> Validate(ValidationContext context)
     {
         var results = new List<ValidationResult>();

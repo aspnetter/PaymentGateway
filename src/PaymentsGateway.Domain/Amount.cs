@@ -6,7 +6,7 @@ public class Amount
     public IsoCurrency Currency { get; private set; }
 
     //TEST:UNIT
-    public Amount(decimal total, string? currencyCode)
+    public Amount(decimal total, string currencyCode)
     {
         if (total < 0)
         {
