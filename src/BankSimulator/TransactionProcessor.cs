@@ -1,5 +1,6 @@
 ﻿using BankSimulator.Interface;
 using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace BankSimulator;
@@ -7,12 +8,12 @@ namespace BankSimulator;
 public class TransactionProcessor : IHostedService, IDisposable
 {
     private const int TransactionProcessIntervalSeconds = 10;
-    private readonly IMediator _mediator;
+    private readonly IServiceScopeFactory _serviceScopeFactory;
     private Timer? _timer;
-
-    public TransactionProcessor(IMediator mediator)
+    
+    public TransactionProcessor(IServiceScopeFactory serviceScopeFactory)
     {
-        _mediator = mediator;
+        _serviceScopeFactory = serviceScopeFactory;
     }
 
     public Task StartAsync(CancellationToken stoppingToken)
@@ -23,44 +24,47 @@ public class TransactionProcessor : IHostedService, IDisposable
         return Task.CompletedTask;
     }
 
-    private void ProcessTransactionCallback(object? state)
+    private async void ProcessTransactionCallback(object? state)
     {
         var unprocessedTransactions = InMemoryStorage.GetPending();
 
         foreach (var cardTransaction in unprocessedTransactions)
         {
-            ProcessTransaction(cardTransaction);
+            await ProcessTransaction(cardTransaction);
         }
     }
 
-    private void ProcessTransaction(BankCardTransaction transaction)
+    private async Task ProcessTransaction(BankCardTransaction transaction)
     {
         var paymentStatus = PaymentStatus.Fail;
         var paymentStatusReason = PaymentStatusReason.Unknown;
         var found = false;
  
-        foreach (var statusReasons in TestData.Cards)
+        foreach (var (status, statusReasons) in TestData.Cards)
         {
             if (found) break;
-            var status = statusReasons.Key;
-            foreach (var reasons in statusReasons.Value)
+            
+            foreach (var cardNumbers in statusReasons)
             {
-                var cards = reasons.Value;
+                var cards = cardNumbers.Value;
 
                 if (cards.Any(c => string.CompareOrdinal(c, transaction.CardNumber) == 0))
                 {
                     paymentStatus = status;
-                    paymentStatusReason = reasons.Key;
+                    paymentStatusReason = cardNumbers.Key;
                     found = true;
                     break;
                 }
             }
         }
 
-        _mediator.Publish(new PaymentProcessedEvent(
-                transaction.PaymentId, 
-                paymentStatus.ToString(), 
-                paymentStatusReason.ToString())); 
+        using var scope = _serviceScopeFactory.CreateScope();
+        
+        var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+        await mediator.Publish(new PaymentProcessedEvent(
+            transaction.PaymentId,
+            paymentStatus.ToString(),
+            paymentStatusReason.ToString()));
     }
 
     public Task StopAsync(CancellationToken stoppingToken)
