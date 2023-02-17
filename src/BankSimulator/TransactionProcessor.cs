@@ -1,5 +1,6 @@
 ﻿using BankSimulator.Interface;
 using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace BankSimulator;
@@ -7,12 +8,14 @@ namespace BankSimulator;
 public class TransactionProcessor : IHostedService, IDisposable
 {
     private const int TransactionProcessIntervalSeconds = 10;
+    private readonly IServiceScopeFactory _serviceScopeFactory;
     private readonly IMediator _mediator;
     private Timer? _timer;
 
-    public TransactionProcessor(IMediator mediator)
+    public TransactionProcessor(IMediator mediator, IServiceScopeFactory serviceScopeFactory)
     {
         _mediator = mediator;
+        _serviceScopeFactory = serviceScopeFactory;
     }
 
     public Task StartAsync(CancellationToken stoppingToken)
@@ -57,10 +60,13 @@ public class TransactionProcessor : IHostedService, IDisposable
             }
         }
 
-        _mediator.Publish(new PaymentProcessedEvent(
-                transaction.PaymentId, 
-                paymentStatus.ToString(), 
-                paymentStatusReason.ToString())); 
+        using var scope = _serviceScopeFactory.CreateScope();
+        
+        var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+        mediator.Publish(new PaymentProcessedEvent(
+            transaction.PaymentId,
+            paymentStatus.ToString(),
+            paymentStatusReason.ToString()));
     }
 
     public Task StopAsync(CancellationToken stoppingToken)
