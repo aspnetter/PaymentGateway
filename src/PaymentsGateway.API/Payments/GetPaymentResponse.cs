@@ -9,7 +9,7 @@ public class GetPaymentResponse
     public string Currency { get; private set; }
     public string CardholderName { get; private set; }
     public string MaskedCardNumber { get; private set; }
-    public PaymentStatus Status { get; private set; }
+    public string Status { get; private set; }
     public string StatusReason { get; private set; }
     public DateTime PaymentDateTimeUtc { get; private set; } 
     public GetPaymentResponse(Payment payment)
@@ -19,7 +19,7 @@ public class GetPaymentResponse
         Currency = payment.TotalAmount.Currency.Code;
         CardholderName = payment.Card.OwnerName;
         MaskedCardNumber = payment.Card.MaskedDetails;
-        Status = payment.Result.Status;
+        Status = payment.Result.Status.ToString().ToUpper();
         StatusReason = payment.Result.StatusReason;
         PaymentDateTimeUtc = payment.CreatedDateTimeUtc;
     }
