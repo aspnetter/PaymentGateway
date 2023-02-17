@@ -8,6 +8,17 @@ public class CardDetails
     public string Number { get; private set; }
     public ExpiryDate Expires { get; private set; }
     public Cvv CvvCode { get; private set; }
+    
+    //TEST:UNIT
+    public string MaskedDetails
+    {
+        get
+        {
+            var detector = new CreditCardDetector(Number);
+            var lastFourNumbersIndex = Number.Length - 5;
+            return $"{detector.BrandName} ****{Number[lastFourNumbersIndex..]} Expires on {Expires.Month:00}/{Expires.Year}";
+        }
+    }
 
     //TEST:UNIT
     public CardDetails(string? ownerName, string? cardNumber, int expiryMonth, int expiryYear, string? cvv)

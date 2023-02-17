@@ -30,38 +30,41 @@ public class PaymentGatewayContext : DbContext
 
         payment.ToTable("Payment");
         payment.Property(o => o.Id).ValueGeneratedNever();
-        payment.OwnsOne(o => o.TotalAmount, o =>
+        payment.OwnsOne(o => o.TotalAmount, amount =>
         {
-            o.Property(o => o.Total).HasColumnName("Amount");
+            amount.Property(o => o.Total).HasColumnName("Amount");
 
-            o.OwnsOne(c => c.Currency, c =>
+            amount.OwnsOne(c => c.Currency, c =>
             {
                 c.Property(o => o.Code).HasColumnName("Currency");
             });
         });
-        
-        payment.OwnsOne(o => o.Card, o =>
+
+        payment.OwnsOne(o => o.Card, card =>
         {
-            o.Property(o => o.OwnerName).HasColumnName("CardOwnerName");
-            o.Property(o => o.Number).HasColumnName("CardNumber");
+            card.Property(o => o.OwnerName).HasColumnName("CardOwnerName");
+            card.Property(o => o.Number).HasColumnName("CardNumber");
             
-            o.OwnsOne(c => c.Expires, c =>
+            card.OwnsOne(o => o.Expires, date =>
             {
-                c.Property(x => x.Month).HasColumnName("CardExpiryMonth");
-                c.Property(x => x.Year).HasColumnName("CardExpiryYear");
-                c.Ignore(x => x.IsOverdue);
+                date.Property(o => o.Month).HasColumnName("CardExpiryMonth");
+                date.Property(o => o.Year).HasColumnName("CardExpiryYear");
+                date.Ignore(o => o.IsOverdue);
             });
-            o.OwnsOne(c => c.CvvCode, c =>
+            
+            card.OwnsOne(o => o.CvvCode, code =>
             {
-                c.Property(x => x.Code).HasColumnName("CardCvvCode");
+                code.Property(o => o.Code).HasColumnName("CardCvvCode");
             });
+
+            card.Ignore(o => o.MaskedDetails);
         });
 
-        payment.OwnsOne(o => o.Result, o =>
+        payment.OwnsOne(o => o.Result, status =>
         {
-            o.Property(o => o.Status).HasColumnName("Status");
-            o.Property(o => o.StatusCode).HasColumnName("StatusCode");
-            o.Ignore(o => o.IsSuccessful);
+            status.Property(o => o.Status).HasColumnName("Status");
+            status.Property(o => o.StatusReason).HasColumnName("StatusCode");
+            status.Ignore(o => o.IsSuccessful);
         });
     }
 }

@@ -16,7 +16,6 @@ public class GetPaymentByIdQueryHandler: IRequestHandler<GetPaymentByIdQuery, Pa
 
     public async Task<Payment> Handle(GetPaymentByIdQuery request, CancellationToken cancellationToken)
     {
-        var result = await _context.Payments.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
-        return result;
+        return await _context.Payments.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
     }
 }
