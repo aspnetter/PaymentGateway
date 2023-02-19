@@ -49,7 +49,6 @@ public class PaymentGatewayContext : DbContext
             {
                 date.Property(o => o.Month).HasColumnName("CardExpiryMonth");
                 date.Property(o => o.Year).HasColumnName("CardExpiryYear");
-                date.Ignore(o => o.IsOverdue);
             });
             
             card.OwnsOne(o => o.CvvCode, code =>

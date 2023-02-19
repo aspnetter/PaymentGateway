@@ -27,14 +27,10 @@ public class ExpiryDate
     
     private ExpiryDate() {}
     
-    //TEST:UNIT
-    public bool IsOverdue
+    public bool IsOverdue(DateTime utcNow)
     {
-        get
-        {
-            var today = DateOnly.FromDateTime(DateTime.UtcNow);
-            return today <= LastDayOfMonth;
-        }
+        var today = DateOnly.FromDateTime(utcNow);
+        return today <= LastDayOfMonth;
     }
 
     private DateOnly LastDayOfMonth

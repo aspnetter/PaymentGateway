@@ -29,7 +29,7 @@ public class CreatePaymentCommand: IRequest<Guid>, IValidatableObject
         var results = new List<ValidationResult>();
 
         var date = new ExpiryDate(ExpiryMonth, ExpiryYear);
-        if (date.IsOverdue)
+        if (date.IsOverdue(DateTime.UtcNow))
         {
             results.Add(new ValidationResult("Card is expired"));    
         }

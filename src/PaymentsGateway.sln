@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{3CA800
 		..\docker-compose.override.yml = ..\docker-compose.override.yml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentGateway.Domain.UnitTests", "PaymentGateway.Domain.UnitTests\PaymentGateway.Domain.UnitTests.csproj", "{E008BFA1-6216-4723-B382-E19C72CFA2C0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{D7AA9838-CD96-4E93-869B-CC8BDAFD0468}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7AA9838-CD96-4E93-869B-CC8BDAFD0468}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7AA9838-CD96-4E93-869B-CC8BDAFD0468}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E008BFA1-6216-4723-B382-E19C72CFA2C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E008BFA1-6216-4723-B382-E19C72CFA2C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E008BFA1-6216-4723-B382-E19C72CFA2C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E008BFA1-6216-4723-B382-E19C72CFA2C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,5 +66,6 @@ Global
 		{C91754FF-FE4D-4F3C-AE18-F1C2FDF746A6} = {A801329B-D101-46D1-9CED-E53BAA85BC80}
 		{22D63BAC-240E-416B-811D-802C6EA3B0D1} = {A801329B-D101-46D1-9CED-E53BAA85BC80}
 		{D7AA9838-CD96-4E93-869B-CC8BDAFD0468} = {A801329B-D101-46D1-9CED-E53BAA85BC80}
+		{E008BFA1-6216-4723-B382-E19C72CFA2C0} = {A801329B-D101-46D1-9CED-E53BAA85BC80}
 	EndGlobalSection
 EndGlobal

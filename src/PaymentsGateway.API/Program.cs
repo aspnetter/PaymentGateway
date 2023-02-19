@@ -8,7 +8,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddBankSimulator();
@@ -40,9 +39,9 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-using (var serviceScope = app.Services.GetService<IServiceScopeFactory>().CreateScope())
+using (var serviceScope = app.Services.GetService<IServiceScopeFactory>()?.CreateScope())
 {
-    serviceScope.ServiceProvider.GetService<PaymentGatewayContext>().Database.EnsureCreated();
+    serviceScope?.ServiceProvider.GetService<PaymentGatewayContext>()?.Database.EnsureCreated();
 }
 
 app.Run();
