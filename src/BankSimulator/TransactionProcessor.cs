@@ -7,7 +7,7 @@ namespace BankSimulator;
 
 public class TransactionProcessor : IHostedService, IDisposable
 {
-    private const int TransactionProcessIntervalSeconds = 10;
+    private const int TransactionProcessIntervalSeconds = 20;
     private readonly IServiceScopeFactory _serviceScopeFactory;
     private Timer? _timer;
     

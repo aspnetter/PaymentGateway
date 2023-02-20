@@ -17,7 +17,7 @@ The structure and the architecture of the solution follows the DDD-oriented serv
 The two additional projects in the solution:
 
 - **PaymentsGetway.API** - HTTP network access for the consumers of our Gateway service
-- **BankSimulator** - a very simple .NET hosted service which runs a background task on the timer, checking if there are any pending / unprocessed payments in its in-memory storage, and decides on the status / response based on the hardcoded sample card numbers and possible statuses. After that, it notifies the PaymentGateway Application on the fact that the payment has been processed and the result.
+- **BankSimulator** - a very simple .NET hosted service which runs a background task on the 20 seconds timer, checking if there are any pending / unprocessed payments in its in-memory storage, and decides on the status / response based on the hardcoded sample card numbers and possible statuses. After that, it notifies the PaymentGateway Application on the fact that the payment has been processed and the result.
 
 ## The flows
 
